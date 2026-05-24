@@ -1,0 +1,20 @@
+[project]
+name = "skypool-dify-plugin"
+version = "0.1.0"
+description = "Skypool model provider for Dify"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dify_plugin>=0.5.0",
+    "httpx>=0.28.1,<1",
+    "openai>=1.99.9",
+    "requests>=2.32.5,<3",
+    "setuptools==80.9.0",
+    "tiktoken>=0.8.0,<1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "ruff>=0.12.5",
+]

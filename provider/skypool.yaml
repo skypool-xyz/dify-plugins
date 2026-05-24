@@ -1,0 +1,53 @@
+provider: skypool
+label:
+  en_US: Skypool
+  zh_Hans: 天池 Token
+description:
+  en_US: Use Skypool models through Skypool's OpenAI-compatible API.
+  zh_Hans: 通过天池 Token 的 OpenAI 兼容接口使用 Skypool 模型。
+background: "#0B0716"
+icon_small:
+  en_US: icon.png
+icon_large:
+  en_US: icon.png
+help:
+  title:
+    en_US: Get your Skypool Consumer API key
+    zh_Hans: 获取天池 Token Consumer API Key
+  url:
+    en_US: https://skypool.xyz/console/consumer
+supported_model_types:
+  - llm
+configurate_methods:
+  - predefined-model
+provider_credential_schema:
+  credential_form_schemas:
+    - variable: api_key
+      label:
+        en_US: API Key
+        zh_Hans: API Key
+      type: secret-input
+      required: true
+      placeholder:
+        en_US: Enter your Skypool Consumer API key
+        zh_Hans: 请输入天池 Token Consumer API Key
+    - variable: endpoint_url
+      label:
+        en_US: API endpoint URL
+        zh_Hans: API endpoint URL
+      type: text-input
+      required: false
+      default: https://a.skypool.xyz/v1
+      placeholder:
+        en_US: https://a.skypool.xyz/v1
+        zh_Hans: https://a.skypool.xyz/v1
+extra:
+  python:
+    provider_source: provider/skypool.py
+    model_sources:
+      - models/llm/llm.py
+models:
+  llm:
+    position: models/llm/_position.yaml
+    predefined:
+      - models/llm/*.yaml

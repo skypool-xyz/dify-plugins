@@ -1,0 +1,82 @@
+name: Publish Dify Plugin
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout plugin source
+        uses: actions/checkout@v4
+
+      - name: Install tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh python3-yaml tree
+          mkdir -p "$RUNNER_TEMP/bin"
+          wget -O "$RUNNER_TEMP/bin/dify-plugin" \
+            https://github.com/langgenius/dify-plugin-daemon/releases/latest/download/dify-plugin-linux-amd64
+          chmod +x "$RUNNER_TEMP/bin/dify-plugin"
+
+      - name: Read manifest
+        id: manifest
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import yaml
+          with open("manifest.yaml", "r", encoding="utf-8") as f:
+              manifest = yaml.safe_load(f)
+          for key in ("name", "author", "version"):
+              print(f"{key}={manifest[key]}")
+          PY
+
+      - name: Package plugin
+        run: |
+          PACKAGE_NAME="${{ steps.manifest.outputs.name }}-${{ steps.manifest.outputs.version }}.difypkg"
+          "$RUNNER_TEMP/bin/dify-plugin" plugin package . -o "$PACKAGE_NAME"
+          test -f "$PACKAGE_NAME"
+
+      - name: Checkout marketplace fork
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ steps.manifest.outputs.author }}/dify-plugins
+          path: dify-plugins
+          token: ${{ secrets.PLUGIN_ACTION }}
+          fetch-depth: 1
+
+      - name: Push package branch
+        run: |
+          PACKAGE_NAME="${{ steps.manifest.outputs.name }}-${{ steps.manifest.outputs.version }}.difypkg"
+          TARGET_DIR="dify-plugins/${{ steps.manifest.outputs.author }}/${{ steps.manifest.outputs.name }}"
+          BRANCH_NAME="bump-${{ steps.manifest.outputs.name }}-plugin-${{ steps.manifest.outputs.version }}"
+
+          mkdir -p "$TARGET_DIR"
+          cp "$PACKAGE_NAME" "$TARGET_DIR/"
+
+          cd dify-plugins
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH_NAME"
+          git add "${{ steps.manifest.outputs.author }}/${{ steps.manifest.outputs.name }}/$PACKAGE_NAME"
+          git commit -m "bump ${{ steps.manifest.outputs.name }} plugin to version ${{ steps.manifest.outputs.version }}" || exit 0
+          git push -u origin "$BRANCH_NAME" --force
+
+      - name: Create marketplace PR
+        env:
+          GH_TOKEN: ${{ secrets.PLUGIN_ACTION }}
+        run: |
+          BRANCH_NAME="bump-${{ steps.manifest.outputs.name }}-plugin-${{ steps.manifest.outputs.version }}"
+          gh pr create \
+            --repo langgenius/dify-plugins \
+            --head "${{ steps.manifest.outputs.author }}:$BRANCH_NAME" \
+            --base main \
+            --title "bump ${{ steps.manifest.outputs.name }} plugin to version ${{ steps.manifest.outputs.version }}" \
+            --body "bump ${{ steps.manifest.outputs.name }} plugin package to version ${{ steps.manifest.outputs.version }}
+
+          Changes:
+          - Add Skypool model provider package for Dify Marketplace." \
+            || echo "PR already exists or creation was skipped."

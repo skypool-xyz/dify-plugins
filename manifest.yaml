@@ -1,0 +1,30 @@
+version: 0.0.1
+type: plugin
+author: Azard
+name: skypool
+label:
+  en_US: Skypool
+  zh_Hans: 天池 Token
+description:
+  en_US: Skypool model provider for Dify, backed by Skypool's OpenAI-compatible API.
+  zh_Hans: 面向 Dify 的天池 Token 模型供应商插件，基于天池 Token 的 OpenAI 兼容接口。
+icon: icon.png
+privacy: ./PRIVACY.md
+resource:
+  memory: 268435456
+  permission:
+    model:
+      enabled: false
+plugins:
+  models:
+    - provider/skypool.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+created_at: "2026-05-24T00:00:00Z"
