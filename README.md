@@ -2,14 +2,14 @@
 
 Skypool is a Dify model provider plugin for the Skypool OpenAI-compatible API. It lets Dify users call Skypool chat models with a Skypool Consumer API key.
 
-## Official resources
+## Resources
 
-- Website: https://skypool.xyz/
-- Developer docs: https://skypool.xyz/docs
-- Dify integration guide: https://skypool.xyz/docs/dify
-- Consumer console: https://skypool.xyz/console/consumer
-- Model list: https://skypool.xyz/models
-- Playground: https://skypool.xyz/console/consumer/lab/playground
+- [Website](https://skypool.xyz/)
+- [Developer docs](https://skypool.xyz/docs)
+- [Dify integration guide](https://skypool.xyz/docs/dify)
+- [Consumer console](https://skypool.xyz/console/consumer)
+- [Model list](https://skypool.xyz/models)
+- [Playground](https://skypool.xyz/console/consumer/lab/playground)
 
 Skypool Token provides an OpenAI-compatible API for application developers and AI tools. The developer docs cover Consumer API key creation, the unified `baseURL`, model selection, streaming responses, request activity records, and common integration guides.
 
@@ -23,12 +23,12 @@ Skypool Token provides an OpenAI-compatible API for application developers and A
 
 ## Configuration
 
-1. Open the Skypool consumer console: https://skypool.xyz/console/consumer
+1. Open the [Skypool consumer console](https://skypool.xyz/console/consumer).
 2. Create or copy a Consumer API key.
 3. Add the Skypool provider in Dify.
 4. Enter the Consumer API key.
 5. Keep the default endpoint URL, `https://a.skypool.xyz/v1`, unless you use another Skypool-compatible deployment.
-6. For detailed onboarding and Dify-specific screenshots, read https://skypool.xyz/docs and https://skypool.xyz/docs/dify.
+6. For detailed onboarding and Dify-specific screenshots, read the [developer docs](https://skypool.xyz/docs) and [Dify integration guide](https://skypool.xyz/docs/dify).
 
 ## Models
 
