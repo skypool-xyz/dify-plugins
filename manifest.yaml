@@ -1,4 +1,4 @@
-version: 0.0.1
+version: 0.5.1
 type: plugin
 author: Azard
 name: skypool
@@ -19,7 +19,7 @@ plugins:
   models:
     - provider/skypool.yaml
 meta:
-  version: 0.0.1
+  version: 0.5.1
   arch:
     - amd64
     - arm64
