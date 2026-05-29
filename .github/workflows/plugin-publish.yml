@@ -43,7 +43,7 @@ jobs:
       - name: Checkout marketplace fork
         uses: actions/checkout@v4
         with:
-          repository: ${{ steps.manifest.outputs.author }}/dify-plugins
+          repository: skypool-xyz/dify-plugins
           path: dify-plugins
           token: ${{ secrets.PLUGIN_ACTION }}
           fetch-depth: 1
@@ -72,7 +72,7 @@ jobs:
           BRANCH_NAME="bump-${{ steps.manifest.outputs.name }}-plugin-${{ steps.manifest.outputs.version }}"
           gh pr create \
             --repo langgenius/dify-plugins \
-            --head "${{ steps.manifest.outputs.author }}:$BRANCH_NAME" \
+            --head "skypool-xyz:$BRANCH_NAME" \
             --base main \
             --title "bump ${{ steps.manifest.outputs.name }} plugin to version ${{ steps.manifest.outputs.version }}" \
             --body "bump ${{ steps.manifest.outputs.name }} plugin package to version ${{ steps.manifest.outputs.version }}
