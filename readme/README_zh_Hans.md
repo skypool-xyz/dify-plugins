@@ -47,5 +47,5 @@
 
 - 天池 Token 官网：https://skypool.xyz/
 - 天池 Token 文档：https://skypool.xyz/docs
-- 源码仓库：https://github.com/skypool-xyz/dify-plugin
-- 问题反馈与联系：https://github.com/skypool-xyz/dify-plugin/issues
+- 源码仓库：https://github.com/skypool-xyz/dify-plugins
+- 问题反馈与联系：https://github.com/skypool-xyz/dify-plugins/issues

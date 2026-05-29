@@ -47,5 +47,5 @@ The plugin forwards prompts, model parameters, tool definitions, and files suppo
 
 - Skypool website: https://skypool.xyz/
 - Skypool docs: https://skypool.xyz/docs
-- Source repository: https://github.com/skypool-xyz/dify-plugin
-- Issues and contact: https://github.com/skypool-xyz/dify-plugin/issues
+- Source repository: https://github.com/skypool-xyz/dify-plugins
+- Issues and contact: https://github.com/skypool-xyz/dify-plugins/issues
